@@ -20,12 +20,13 @@ export class RegisterComponentComponent {
     password: new FormControl(''),
   })
 
+  errorMessage: string | null = null;
   register()
   {
     this.authService.register(this.registerForm.value.email ?? '', this.registerForm.value.username ?? '', this.registerForm.value.password ?? '')
-    .subscribe(() =>
-    {
-      this.router.navigateByUrl('/');
-    });
+    .subscribe(
+      res => this.router.navigateByUrl('/'),
+      err => this.errorMessage = err.code
+    );
   }
 }
