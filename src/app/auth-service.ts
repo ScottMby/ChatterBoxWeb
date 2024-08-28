@@ -7,6 +7,7 @@ import { UserInterface } from "./user.interface";
     providedIn: 'root'
 })
 export class AuthService {
+
     firebaseAuth = inject(Auth);
     user$ = user(this.firebaseAuth);
     currentUserSig = signal<UserInterface | null | undefined>(undefined); //If null user is not logged in. To get user details do currentUserSig?.<detail>
@@ -18,8 +19,9 @@ export class AuthService {
             email, 
             password
         ).then(response => 
-            updateProfile(response.user, {displayName: username})
+            updateProfile(response.user, {displayName: username}) //The username must be updated seperately as there is no firebase function for all these params
         );
+
         return from(promise);
     }
 
@@ -31,6 +33,12 @@ export class AuthService {
             password
         ).then(() => {})
         return from(promise);
+    }
+
+    getAuthToken() : Observable<string> //Get auth token so that we can authorize the user to use our API
+    {
+        const authToken = this.firebaseAuth.currentUser?.getIdToken() ?? '';
+        return from(authToken);
     }
 
 }
