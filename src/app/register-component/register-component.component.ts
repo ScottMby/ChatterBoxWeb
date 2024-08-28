@@ -28,5 +28,6 @@ export class RegisterComponentComponent {
       res => this.router.navigateByUrl('/'),
       err => this.errorMessage = err.code
     );
+    this.authService.registerApi();
   }
 }

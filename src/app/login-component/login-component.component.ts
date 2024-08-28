@@ -29,4 +29,12 @@ export class LoginComponentComponent {
       err => this.errorMessage = err.code
     );
   }
+
+  getAuthToken(){
+    const token = this.authService.getAuthToken();
+    if(token)
+    {
+      token.subscribe(res => console.log(res)); //res is the jwt token that needs to be sent to the api
+    }
+  }
 }

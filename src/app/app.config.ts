@@ -5,6 +5,8 @@ import { routes } from './app.routes';
 import { firebaseApp$, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+
 const firebaseConfig = {
   apiKey: "AIzaSyDIjdjHzl6rzqXiTMQ3_17J4G3GLgY8BVs",
   authDomain: "chatterbox-aa1af.firebaseapp.com",
@@ -16,5 +18,5 @@ const firebaseConfig = {
 };
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideFirebaseApp(() => initializeApp(firebaseConfig)), provideAuth(() => getAuth())]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideFirebaseApp(() => initializeApp(firebaseConfig)), provideAuth(() => getAuth()), provideHttpClient(withFetch())]
 };
